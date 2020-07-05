@@ -13,6 +13,20 @@ namespace MechFighter
         SpriteBatch spriteBatch;
         private float frameRate;
 
+        int frameCounter;
+
+
+        Texture2D background;
+        /*
+        GamePadState gamePadState;
+
+       
+        Rectangle someRectangle;
+        bool still;
+
+        private SuperMarioManager marioManager;
+        */
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -36,6 +50,9 @@ namespace MechFighter
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            //still = false;
+            //someRectangle = new Rectangle(0,0,16,24);
+            //frameCounter = 0;
         }
 
         /// <summary>
@@ -46,6 +63,14 @@ namespace MechFighter
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            background = Content.Load<Texture2D>("PossibleContent/bg1");
+
+
+
+            //marioManager = new SuperMarioManager(Content.Load<Texture2D>("PossibleContent/53664trans"));
+
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -69,8 +94,26 @@ namespace MechFighter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            //gamePadState = GamePad.GetState(PlayerIndex.One);
+
             frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
+            frameCounter++;
             // TODO: Add your update logic here
+
+            /*
+            if (gamePadState.DPad.Left == ButtonState.Pressed)
+            {
+                marioManager.marioUpdater();
+            }
+            else
+            {
+
+            }
+            */
+
+
+            //theMarioTextureMap.Thext = 
+
 
             base.Update(gameTime);
         }
@@ -81,12 +124,31 @@ namespace MechFighter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Gray);
-            this.Window.Title = "MechFighter: " + frameRate.ToString();
+            GraphicsDevice.Clear(Color.White);
+            this.Window.Title = "MechFighter FPS: " + frameRate.ToString();
 
             // TODO: Add your drawing code here
+
+            spriteBatch.Begin(SpriteSortMode.Deferred,BlendState.AlphaBlend, SamplerState.PointClamp,null, null, null, null);
+            spriteBatch.Draw(background, new Rectangle(0,0,512,640), Color.White);
+
+            // spriteBatch.Draw(background, new Rectangle(512, 0, 512, 640), null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 1);
+            
+            
+            //spriteBatch.Draw(marioManager.getMarioSpriteMap(), new Rectangle(100, 100, 160, 240),marioManager.currentMarioRectangleFrame, Color.White);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
     }
 }
+
+
+
+/**
+ * Here is where I lay out my first stage deliverables
+ * 
+ * 1. little mario must move left with left button, and right with right button
+ * 
+ * 
+ */
