@@ -16,7 +16,7 @@ namespace MechFighter
         int frameCounter;
 
 
-        Texture2D background;
+        MechFighterLevelOneBackground mFLOBackground;
         /*
         GamePadState gamePadState;
 
@@ -64,7 +64,7 @@ namespace MechFighter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            background = Content.Load<Texture2D>("PossibleContent/bg1");
+            mFLOBackground = new MechFighterLevelOneBackground(Content.Load<Texture2D>("PossibleContent/bg1"));
 
 
 
@@ -93,6 +93,8 @@ namespace MechFighter
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            mFLOBackground.update();
 
             //gamePadState = GamePad.GetState(PlayerIndex.One);
 
@@ -130,11 +132,7 @@ namespace MechFighter
             // TODO: Add your drawing code here
 
             spriteBatch.Begin(SpriteSortMode.Deferred,BlendState.AlphaBlend, SamplerState.PointClamp,null, null, null, null);
-            spriteBatch.Draw(background, new Rectangle(0,0,512,640), Color.White);
-
-            // spriteBatch.Draw(background, new Rectangle(512, 0, 512, 640), null, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 1);
-            
-            
+            mFLOBackground.draw(spriteBatch);
             //spriteBatch.Draw(marioManager.getMarioSpriteMap(), new Rectangle(100, 100, 160, 240),marioManager.currentMarioRectangleFrame, Color.White);
             spriteBatch.End();
 
