@@ -29,6 +29,7 @@ namespace LevelUp
         public SuperMarioManager(Texture2D inputTexture)
         {
             marioSpriteMap = inputTexture;
+
             littleMarioStandingLeft = new Rectangle(1, 10, 16, 24);
             littleMarioWalkingLeft = new Rectangle(18, 11, 16, 23);
             internalTickCounter = 0;
@@ -58,33 +59,39 @@ namespace LevelUp
         }
 
 
-        public void marioUpdater()
+        public void update(PlayerInputManager pim)
         {
-            internalTickCounter++;
-
-
-            if (internalTickCounter % 6 == 0)
+            if(pim.isGamePadOneDPadLeftCurrentlyPressed())
             {
-                if (littleMarioStanding)
-                {
-                    currentMarioRectangleFrame = littleMarioStandingLeft;
-                    littleMarioStanding = false;
-                }
-                else
-                {
-                    littleMarioStanding = true;
-                    currentMarioRectangleFrame = littleMarioWalkingLeft;
-                }
+                leftWasPressed();
+            }
+            if(pim.isGamePadOneDPadRightCurrentlyPressed())
+            {
+                rightWasPressed();
             }
 
-            if (marioPosition.Y < 500)
-            {
-                marioPosition.Y++;
-            }
+            //internalTickCounter++;
 
+            //if (internalTickCounter % 6 == 0)
+            //{
+            //    if (littleMarioStanding)
+            //    {
+            //        currentMarioRectangleFrame = littleMarioStandingLeft;
+            //        littleMarioStanding = false;
+            //    }
+            //    else
+            //    {
+            //        littleMarioStanding = true;
+            //        currentMarioRectangleFrame = littleMarioWalkingLeft;
+            //    }
+            //}
 
+            //if (marioPosition.Y < 500)
+            //{
+            //    marioPosition.Y++;
+            //}
 
-            internalTickCounter %= 60;
+            //internalTickCounter %= 60;
         }
 
         public void Draw(SpriteBatch spriteBatch)
